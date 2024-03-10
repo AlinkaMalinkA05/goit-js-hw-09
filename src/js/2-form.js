@@ -11,23 +11,35 @@
 //форми, а також виводь у консоль об'єкт з полями 
 //email, message та їхніми поточними значеннями.
 const form = document.querySelector(".feedback-form")
-form.addEventListener("input", handleInput);
-form.addEventListener("submit", handleSubmit)
-function handleInput(event) {
-    event.preventDefault()
-    const email = form.elements.email.value;
-    const message = form.elements.message.value
+function saveData() {
+    const email = form.elements.email.value.trim();
+    const message =  form.elements.message.value.trim();
     const data = {
         email: email,
         message: message
     };
     localStorage.setItem("feedback-form-state", JSON.stringify(data));
 }
-function handleSubmit(event) {
+form.addEventListener("input", handleInput);
+form.addEventListener("submit", handleSubmit)
+function handleInput(event) {
     event.preventDefault()
-    const email = form.elements.email.value;
-    const message = form.elements.message.value;
+    saveData();
+}
+function handleSubmit(event) {
+    event.preventDefault();
+    const email = form.elements.email.value.trim();
+    const message =  form.elements.message.value.trim();
+    if (!email||!message) {
+        return
+    };
     localStorage.removeItem("feedback-form-state");
     form.reset()
 }
- 
+if (localStorage.getItem("feedback-form-state")) {
+    const storedData = JSON.parse(localStorage.getItem("feedback-form-state"));
+
+    form.elements.email.value = storedData.email;
+    form.elements.message.value = storedData.message
+}
+
