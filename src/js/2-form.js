@@ -23,15 +23,15 @@ function saveData() {
 form.addEventListener("input", handleInput);
 form.addEventListener("submit", handleSubmit)
 function handleInput(event) {
-    event.preventDefault()
+    
     saveData();
 }
 function handleSubmit(event) {
     event.preventDefault();
     const email = form.elements.email.value.trim();
     const message =  form.elements.message.value.trim();
-    if (!email||!message) {
-        return
+    if (!email || !message) {
+        console.log({email, message});
     };
     localStorage.removeItem("feedback-form-state");
     form.reset()
