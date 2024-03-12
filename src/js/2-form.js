@@ -23,23 +23,25 @@ function saveData() {
 form.addEventListener("input", handleInput);
 form.addEventListener("submit", handleSubmit)
 function handleInput(event) {
-    
+    event.preventDefault()
     saveData();
-}
+};
 function handleSubmit(event) {
     event.preventDefault();
     const email = form.elements.email.value.trim();
     const message =  form.elements.message.value.trim();
-    if (!email || !message) {
+    if (!email || !message){
+        alert('Please fill email and message!!!');
+    } else {
         console.log({email, message});
-    };
     localStorage.removeItem("feedback-form-state");
     form.reset()
-}
+        }
+};
+    
 if (localStorage.getItem("feedback-form-state")) {
     const storedData = JSON.parse(localStorage.getItem("feedback-form-state"));
-
-    form.elements.email.value = storedData.email;
-    form.elements.message.value = storedData.message
+form.elements.email.value = storedData.email;
+    form.elements.message.value = storedData.message;
 }
 
